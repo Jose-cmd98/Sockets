@@ -1,3 +1,4 @@
+const { Socket } = require('socket.io');
 
 const app = require('express')();
 const http = require('http').createServer(app);
@@ -9,11 +10,11 @@ app.get('/', (req,res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('Usuário Conectado. ');
 
-    socket.on('disconnect', () => {
-        console.log('Desconectado. ');
+    socket.on('chat message', (obj) => {
+        console.log(obj);
     })
+    
 })
 
 http.listen(3000, () => {
