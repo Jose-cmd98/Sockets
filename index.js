@@ -10,6 +10,10 @@ app.get('/', (req,res) => {
 
 io.on('connection', (socket) => {
     console.log('Usuário Conectado. ');
+
+    socket.on('disconnect', () => {
+        console.log('Desconectado. ');
+    })
 })
 
 http.listen(3000, () => {
