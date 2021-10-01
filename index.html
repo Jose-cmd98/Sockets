@@ -76,7 +76,18 @@
       var socket = io();
       var nome = prompt('Qual seu nome?');
 
-      alert('Bem-vindo ao Chat '+nome);
+      socket.emit('new user',nome); //validação no backend
+
+      socket.on('new user', (data) => {
+          if(data.sucess){ //caso indexOf nao retorne == sucess
+            alert('Bem-vindo ao Chat '+nome);
+          }else{
+              alert('Usuário ja existe!'); //else == false
+              windows.location.href= "/";
+          }
+      })
+
+      
 
 
       var messages = document.getElementById('messages');
