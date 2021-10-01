@@ -57,8 +57,8 @@
         padding: 0.5rem 1rem;
       }
 
-      #messages > li:nth-child(odd) {
-        background: #efefef;
+      #messages > li {
+        background:white;
       }
     </style>
   </head>
@@ -76,7 +76,7 @@
       var socket = io();
       var nome = prompt('Qual seu nome?');
 
-      alert('Bem-vindo ao Chat ' +nome);
+      alert('Bem-vindo ao Chat '+nome);
 
 
       var messages = document.getElementById('messages');
@@ -88,17 +88,29 @@
           if(input.value){
               socket.emit('chat message',{msg:input.value,nome:nome});
               input.value = '';
-              alert('Mensagem Enviada!')
+              
           }
       })
 
-    //   socket.on("conectado", function (msg) {
-    //     console.log(msg);
-    //   });
+      socket.on('chat message', (obj) => {
 
-    //   socket.on("novo usuario", function (msg) {
-    //     console.log(msg);
-    //   });
+        if(obj.nome == nome){
+            //mensagem com uma cor.
+            var item = document.createElement('li');
+            item.style.backgroundColor = 'gray';
+            item.textContent = obj.nome+" Diz: "+obj.msg;
+            messages.appendChild(item);
+            window.scrollto(0, document.body.scrollHeight);
+        }else{
+            //mensagem com outra cor.
+            var item = document.createElement('li');
+            item.textContent = obj.nome+" Diz: "+obj.msg;
+            messages.appendChild(item);
+            window.scrollto(0, document.body.scrollHeight);
+        }
+      })
+
+    
     </script>
   </body>
 </html>

@@ -5,6 +5,8 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
 
+var usuarios = [];//array de usuarios
+
 app.get('/', (req,res) => {
     res.sendFile(__dirname + '/index.html');
 });
@@ -12,7 +14,7 @@ app.get('/', (req,res) => {
 io.on('connection', (socket) => {
 
     socket.on('chat message', (obj) => {
-        console.log(obj);
+        io.emit('chat message', obj);
     })
     
 })
