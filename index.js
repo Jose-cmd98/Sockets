@@ -13,7 +13,7 @@ app.get('/', (req,res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-io.on('connection', (socket) => {
+io.on('connection', (socket) => { //ioConnection
 
     socket.on('new user', (data) => { //data >nome
         if(usuarios.indexOf(data) != -1){ //indexOf retorna o valor != -1
